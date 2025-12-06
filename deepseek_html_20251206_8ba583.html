@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Осенняя тропа: Квест по Есенину</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Old+Standard+TT&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍂</text></svg>">
+</head>
+<body>
+    <!-- Контейнер для падающих листьев -->
+    <div id="leaves-container"></div>
+    
+    <!-- Основной контейнер -->
+    <div class="container">
+        <!-- Раздел 1: Приветствие -->
+        <section id="welcome" class="active-section">
+            <div class="paper-texture">
+                <h1>🍂 Осенняя тропа 🍂</h1>
+                <h2>Интерактивный квест по творчеству Сергея Есенина</h2>
+                <div class="quote">
+                    <p>"Большое видится на расстоянье..."</p>
+                </div>
+                <button id="start-btn" class="btn">Начать путешествие</button>
+                <div class="invite-link">
+                    <p>Пригласите друзей: <span id="share-link">скопируйте ссылку на эту страницу</span></p>
+                    <button id="copy-btn" class="btn-small">Копировать ссылку</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел 2: Инструкция -->
+        <section id="instructions" class="hidden-section">
+            <div class="paper-texture">
+                <h2>Правила квеста</h2>
+                <div class="rules">
+                    <div class="rule">
+                        <span class="rule-number">1</span>
+                        <p>Разгадайте кроссворд из 10 слов по биографии и творчеству Есенина</p>
+                    </div>
+                    <div class="rule">
+                        <span class="rule-number">2</span>
+                        <p>Продолжите строфы из известных стихотворений, выбрав правильный вариант</p>
+                    </div>
+                    <div class="rule">
+                        <span class="rule-number">3</span>
+                        <p>Ответьте на 10 вопросов блиц-опроса за 60 секунд</p>
+                    </div>
+                </div>
+                <p class="note">Набирайте баллы за правильные ответы! Максимум — 30 баллов.</p>
+                <button id="to-crossword" class="btn">К первому заданию</button>
+            </div>
+        </section>
+
+        <!-- Раздел 3: Кроссворд -->
+        <section id="crossword" class="hidden-section">
+            <div class="paper-texture">
+                <h2>Задание 1: Кроссворд</h2>
+                <p class="task-description">Разгадайте слова, связанные с жизнью и творчеством Есенина</p>
+                
+                <div class="crossword-container">
+                    <div class="crossword-grid" id="crossword-grid">
+                        <!-- Сетка 10x10 будет сгенерирована через JS -->
+                    </div>
+                    
+                    <div class="questions">
+                        <h3>Вопросы:</h3>
+                        <div id="questions-list">
+                            <!-- Вопросы будут добавлены через JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="check-crossword" class="btn">Проверить ответы</button>
+                    <button id="to-poem" class="btn">Следующее задание</button>
+                </div>
+                <div class="score-display">Баллы: <span id="score1">0</span>/10</div>
+            </div>
+        </section>
+
+        <!-- Раздел 4: Продолжение стихотворения -->
+        <section id="poem" class="hidden-section">
+            <div class="paper-texture">
+                <h2>Задание 2: Продолжи стихотворение</h2>
+                <p class="task-description">Выберите правильную следующую строку для каждой строфы</p>
+                
+                <div id="poem-questions">
+                    <!-- Вопросы будут добавлены через JS -->
+                </div>
+                
+                <div class="controls">
+                    <button id="check-poem" class="btn">Проверить ответы</button>
+                    <button id="to-quiz" class="btn">Следующее задание</button>
+                </div>
+                <div class="score-display">Баллы: <span id="score2">0</span>/10</div>
+            </div>
+        </section>
+
+        <!-- Раздел 5: Блиц-опрос -->
+        <section id="quiz" class="hidden-section">
+            <div class="paper-texture">
+                <h2>Задание 3: Блиц-опрос</h2>
+                <p class="task-description">Ответьте на вопросы за 60 секунд!</p>
+                
+                <div class="timer-container">
+                    <div class="timer" id="timer">60</div>
+                    <div class="timer-label">секунд осталось</div>
+                </div>
+                
+                <div id="quiz-container">
+                    <div id="question"></div>
+                    <div id="options"></div>
+                </div>
+                
+                <div class="controls">
+                    <button id="next-question" class="btn hidden">Следующий вопрос</button>
+                    <button id="finish-quiz" class="btn">Завершить опрос</button>
+                </div>
+                <div class="score-display">Баллы: <span id="score3">0</span>/10</div>
+            </div>
+        </section>
+
+        <!-- Раздел 6: Результаты -->
+        <section id="results" class="hidden-section">
+            <div class="paper-texture certificate">
+                <h2>Квест завершён!</h2>
+                
+                <div class="results-summary">
+                    <h3>Ваши результаты:</h3>
+                    <div class="result-item">
+                        <span>Кроссворд:</span>
+                        <span id="final-score1">0</span>/10 баллов
+                    </div>
+                    <div class="result-item">
+                        <span>Продолжение стихов:</span>
+                        <span id="final-score2">0</span>/10 баллов
+                    </div>
+                    <div class="result-item">
+                        <span>Блиц-опрос:</span>
+                        <span id="final-score3">0</span>/10 баллов
+                    </div>
+                    <div class="result-total">
+                        <span>Итого:</span>
+                        <span id="total-score">0</span>/30 баллов
+                    </div>
+                </div>
+                
+                <div class="certificate-text" id="certificate-text">
+                    <!-- Текст сертификата будет сгенерирован через JS -->
+                </div>
+                
+                <div class="controls">
+                    <button id="restart-btn" class="btn">Пройти квест ещё раз</button>
+                    <button id="share-results" class="btn">Поделиться результатами</button>
+                </div>
+                
+                <div class="facts">
+                    <h3>Интересные факты о Есенине:</h3>
+                    <div id="facts-list">
+                        <!-- Факты будут добавлены через JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
